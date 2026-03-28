@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minecraft Python Launcher</title>
+  <meta name="description" content="A lightweight, offline-capable Minecraft launcher built with Python and PyQt5." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+  <!-- ===================== CANVAS BACKGROUND ===================== -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="navbar" id="navbar">
+    <nav class="nav-inner">
+      <!-- Logo -->
+      <a href="#" class="nav-logo">
+        <span class="logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          </svg>
+        </span>
+        <span class="logo-text">MPLauncher</span>
+      </a>
+
+      <!-- Desktop Links -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#install" class="nav-link">Install</a></li>
+        <li><a href="#support" class="nav-link">Support</a></li>
+      </ul>
+
+      <!-- CTA + Hamburger -->
+      <div class="nav-actions">
+        <a href="https://github.com/CirqueiraDev/Minecraft-PyLauncher" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-nav">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main>
+
+    <!-- ===================== HERO SECTION ===================== -->
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+
+        <!-- Left: Text Content -->
+        <div class="hero-content">
+          <div class="hero-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+            Open Source — v1.0.0
+          </div>
+
+          <h1 class="hero-title">
+            The Minimal<br/>
+            <span class="title-accent">Minecraft</span><br/>
+            Launcher
+          </h1>
+
+          <p class="hero-subtitle">
+            A lightweight, offline-capable Minecraft launcher built with Python and PyQt5.
+            No account required — just install and play.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="https://github.com/CirqueiraDev/Minecraft-PyLauncher" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large" id="btn-download">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+              </svg>
+              View on GitHub
+            </a>
+            <a href="#features" class="btn btn-ghost btn-large">
+              Learn More
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Stack badges -->
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-label" style="font-size:0.85rem; color: var(--neon);">Python 3.10+</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-label" style="font-size:0.85rem; color: var(--neon);">PyQt5</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-label" style="font-size:0.85rem; color: var(--neon);">MIT License</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Launcher Preview -->
+        <div class="hero-visual">
+          <div class="launcher-mockup" id="launcher-mockup">
+            <!-- Decorative rings -->
+            <div class="mockup-ring ring-1"></div>
+            <div class="mockup-ring ring-2"></div>
+
+            <!-- Launcher UI mockup -->
+            <div class="mockup-window">
+              <div class="window-titlebar">
+                <div class="window-dots">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                </div>
+                <span class="window-title">Minecraft Python Launcher</span>
+              </div>
+              <div class="window-body">
+                <div class="mock-sidebar">
+                  <div class="mock-avatar"></div>
+                  <div class="mock-nav-item active"></div>
+                  <div class="mock-nav-item"></div>
+                  <div class="mock-nav-item"></div>
+                  <div class="mock-nav-item"></div>
+                </div>
+                <div class="mock-main">
+                  <div class="mock-header-bar"></div>
+                  <div class="mock-version-grid">
+                    <div class="mock-version-card selected">
+                      <div class="mock-ver-icon"></div>
+                      <div class="mock-ver-lines">
+                        <div class="mock-line long"></div>
+                        <div class="mock-line short"></div>
+                      </div>
+                    </div>
+                    <div class="mock-version-card">
+                      <div class="mock-ver-icon"></div>
+                      <div class="mock-ver-lines">
+                        <div class="mock-line long"></div>
+                        <div class="mock-line short"></div>
+                      </div>
+                    </div>
+                    <div class="mock-version-card">
+                      <div class="mock-ver-icon"></div>
+                      <div class="mock-ver-lines">
+                        <div class="mock-line long"></div>
+                        <div class="mock-line short"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mock-play-row">
+                    <div class="mock-play-btn">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor" stroke="none" aria-hidden="true">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                      </svg>
+                      PLAY
+                    </div>
+                    <div class="mock-settings-btn">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== FEATURES SECTION ===================== -->
+    <section class="features" id="features">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-eyebrow">Why Choose MPLauncher</span>
+          <h2 class="section-title">Everything you need.<br/>Nothing you don't.</h2>
+          <p class="section-subtitle">
+            Built for players who want simplicity, control, and offline freedom.
+          </p>
+        </div>
+
+        <div class="features-grid">
+
+          <div class="feature-card" data-delay="0">
+            <div class="card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <!-- Wifi-off: offline -->
+                <line x1="1" y1="1" x2="23" y2="23"/>
+                <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+                <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+                <path d="M10.71 5.05A16 16 0 0 1 22.56 9"/>
+                <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                <line x1="12" y1="20" x2="12.01" y2="20"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Offline Mode</h3>
+            <p class="card-desc">No Microsoft account required. Play completely offline using any nickname — perfect for LAN sessions and cracked usage.</p>
+            <div class="card-glow"></div>
+          </div>
+
+          <div class="feature-card" data-delay="100">
+            <div class="card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <!-- Download cloud -->
+                <polyline points="8 17 12 21 16 17"/>
+                <line x1="12" y1="12" x2="12" y2="21"/>
+                <path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Auto Version Install</h3>
+            <p class="card-desc">Fetches the full Mojang version list and installs any release, snapshot, beta or alpha automatically — with real-time progress feedback.</p>
+            <div class="card-glow"></div>
+          </div>
+
+          <div class="feature-card" data-delay="200">
+            <div class="card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <!-- Terminal -->
+                <polyline points="4 17 10 11 4 5"/>
+                <line x1="12" y1="19" x2="20" y2="19"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Live Console Output</h3>
+            <p class="card-desc">Real-time log streaming during both download and gameplay. See every JVM message as it happens, right inside the launcher.</p>
+            <div class="card-glow"></div>
+          </div>
+
+          <div class="feature-card" data-delay="300">
+            <div class="card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <!-- Sliders -->
+                <line x1="4" y1="21" x2="4" y2="14"/>
+                <line x1="4" y1="10" x2="4" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12" y2="3"/>
+                <line x1="20" y1="21" x2="20" y2="16"/>
+                <line x1="20" y1="12" x2="20" y2="3"/>
+                <line x1="1" y1="14" x2="7" y2="14"/>
+                <line x1="9" y1="8" x2="15" y2="8"/>
+                <line x1="17" y1="16" x2="23" y2="16"/>
+              </svg>
+            </div>
+            <h3 class="card-title">RAM &amp; JVM Control</h3>
+            <p class="card-desc">Adjust memory allocation with a slider and pass custom JVM arguments. Pre-tuned G1GC flags ship out of the box for smoother gameplay.</p>
+            <div class="card-glow"></div>
+          </div>
+
+          <div class="feature-card" data-delay="400">
+            <div class="card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <!-- User / Skin -->
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Custom Skin Support</h3>
+            <p class="card-desc">Load your own skin PNG and it appears in-game — a built-in local skin server serves the texture directly to Minecraft without any external service.</p>
+            <div class="card-glow"></div>
+          </div>
+
+          <div class="feature-card" data-delay="500">
+            <div class="card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <!-- Coffee / Java -->
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                <line x1="6" y1="1" x2="6" y2="4"/>
+                <line x1="10" y1="1" x2="10" y2="4"/>
+                <line x1="14" y1="1" x2="14" y2="4"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Java Detection</h3>
+            <p class="card-desc">Automatically detects your Java installation and reports its version. Clear error messages guide you if Java is missing or misconfigured.</p>
+            <div class="card-glow"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ABOUT SECTION ===================== -->
+    <section class="about" id="about">
+      <div class="section-inner about-inner">
+        <div class="about-text">
+          <span class="section-eyebrow">About the Project</span>
+          <h2 class="section-title">Simple, open,<br/>and offline-first.</h2>
+          <p class="about-desc">
+            MPLauncher started as a weekend experiment to build a clean, minimal Minecraft launcher
+            that requires no Microsoft account. It uses <code style="color:var(--neon);background:rgba(0,180,255,0.08);padding:2px 6px;border-radius:4px;">minecraft-launcher-lib</code> under the hood,
+            a PyQt5 interface, and ships with sane defaults for low-spec machines.
+            Every setting is persisted in a single <code style="color:var(--neon);background:rgba(0,180,255,0.08);padding:2px 6px;border-radius:4px;">settings.json</code> file — no registry, no telemetry.
+          </p>
+          <div class="about-tags">
+            <span class="tag">Python 3.10+</span>
+            <span class="tag">PyQt5 5.15+</span>
+            <span class="tag">MIT License</span>
+            <span class="tag">Windows / macOS / Linux</span>
+            <span class="tag">No Telemetry</span>
+            <span class="tag">Offline-first</span>
+          </div>
+          <a href="https://github.com/CirqueiraDev/Minecraft-PyLauncher" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+            View on GitHub
+          </a>
+        </div>
+        <div class="about-visual">
+          <div class="code-block">
+            <div class="code-titlebar">
+              <span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span>
+              <span class="code-filename">main.py</span>
+            </div>
+            <pre class="code-content"><code><span class="c-comment"># Install dependencies</span>
+<span class="c-comment"># pip install PyQt5 minecraft-launcher-lib requests</span>
+
+<span class="c-keyword">import</span> <span class="c-module">minecraft_launcher_lib</span> <span class="c-keyword">as</span> mll
+<span class="c-keyword">from</span> <span class="c-module">PyQt5.QtWidgets</span> <span class="c-keyword">import</span> QApplication
+
+<span class="c-comment"># Fetch all available versions</span>
+versions = mll.utils.get_version_list()
+
+<span class="c-comment"># Install a version with progress callback</span>
+mll.install.install_minecraft_version(
+    version=<span class="c-string">"1.21.4"</span>,
+    minecraft_directory=minecraft_dir,
+    callback=callback,
+)
+
+<span class="c-comment"># Build launch command (offline, no account)</span>
+options = mll.types.MinecraftOptions(
+    username=<span class="c-string">"Steve"</span>,
+    uuid=player_uuid,
+    token=<span class="c-string">"0"</span>,
+)
+command = mll.command.get_minecraft_command(
+    version=<span class="c-string">"1.21.4"</span>,
+    minecraft_directory=minecraft_dir,
+    options=options,
+)</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== INSTALL SECTION ===================== -->
+    <section class="plugins" id="install">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-eyebrow">Configuration</span>
+          <h2 class="section-title">Persistent settings.<br/>Zero friction.</h2>
+          <p class="section-subtitle">
+            All preferences are saved automatically in <code style="color:var(--neon);">settings.json</code> at the project root.
+          </p>
+        </div>
+        <div class="plugins-grid">
+          <div class="plugin-item reveal">
+            <div class="plugin-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <div class="plugin-text">
+              <strong>minecraft_directory</strong>
+              <span>Custom path to your .minecraft folder</span>
+            </div>
+          </div>
+          <div class="plugin-item reveal">
+            <div class="plugin-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/>
+                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+                <line x1="6" y1="6" x2="6.01" y2="6"/>
+                <line x1="6" y1="18" x2="6.01" y2="18"/>
+              </svg>
+            </div>
+            <div class="plugin-text">
+              <strong>ram_mb</strong>
+              <span>RAM allocation in MB — default 2048</span>
+            </div>
+          </div>
+          <div class="plugin-item reveal">
+            <div class="plugin-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="4 17 10 11 4 5"/>
+                <line x1="12" y1="19" x2="20" y2="19"/>
+              </svg>
+            </div>
+            <div class="plugin-text">
+              <strong>jvm_args</strong>
+              <span>Extra JVM flags appended at launch</span>
+            </div>
+          </div>
+          <div class="plugin-item reveal">
+            <div class="plugin-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+              </svg>
+            </div>
+            <div class="plugin-text">
+              <strong>show_snapshots</strong>
+              <span>Show snapshot, beta and alpha versions</span>
+            </div>
+          </div>
+          <div class="plugin-item reveal">
+            <div class="plugin-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+              </svg>
+            </div>
+            <div class="plugin-text">
+              <strong>close_on_launch</strong>
+              <span>Minimize launcher when game starts</span>
+            </div>
+          </div>
+          <div class="plugin-item reveal">
+            <div class="plugin-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <div class="plugin-text">
+              <strong>last_nickname</strong>
+              <span>Saves your nickname between sessions</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== DOWNLOAD SECTION ===================== -->
+    <section class="download-section" id="download">
+      <div class="section-inner">
+        <div class="download-card">
+          <div class="dl-glow-bg"></div>
+          <span class="section-eyebrow">Get Started</span>
+          <h2 class="dl-title">Ready to launch?</h2>
+          <p class="dl-subtitle">Free, open-source, and runs on Windows, Linux and macOS. Clone the repo and run with Python.</p>
+          <div class="dl-buttons">
+            <a href="https://github.com/CirqueiraDev/Minecraft-PyLauncher" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+              </svg>
+              Clone on GitHub
+            </a>
+            <a href="https://adoptium.net/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+              </svg>
+              Download Java 17+
+            </a>
+          </div>
+          <p class="dl-note">
+            Python 3.10+ required &bull;
+            <code style="color:var(--neon);">pip install -r requirements.txt</code> &bull;
+            <code style="color:var(--neon);">python main.py</code>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SUPPORT SECTION ===================== -->
+    <section class="support" id="support">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-eyebrow">Support</span>
+          <h2 class="section-title">Need help?</h2>
+        </div>
+        <div class="support-grid">
+          <a href="https://github.com/CirqueiraDev/Minecraft-PyLauncher/blob/main/README.md" target="_blank" rel="noopener noreferrer" class="support-card reveal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+            <h3>README</h3>
+            <p>Installation guide, config reference and troubleshooting tips</p>
+          </a>
+          <a href="https://github.com/CirqueiraDev/Minecraft-PyLauncher/issues" target="_blank" rel="noopener noreferrer" class="support-card reveal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <h3>Issue Tracker</h3>
+            <p>Report bugs or request new features directly on GitHub</p>
+          </a>
+          <a href="https://adoptium.net/" target="_blank" rel="noopener noreferrer" class="support-card reveal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+              <line x1="6" y1="1" x2="6" y2="4"/>
+              <line x1="10" y1="1" x2="10" y2="4"/>
+              <line x1="14" y1="1" x2="14" y2="4"/>
+            </svg>
+            <h3>Java Setup</h3>
+            <p>Download Java 17+ from Adoptium — required to run Minecraft</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        </svg>
+        <span>MPLauncher</span>
+      </div>
+      <p class="footer-copy">
+        Open-source software. MIT License. Not affiliated with Mojang or Microsoft.
+      </p>
+      <div class="footer-links">
+        <a href="https://github.com/CirqueiraDev/Minecraft-PyLauncher" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/CirqueiraDev/Minecraft-PyLauncher/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">License</a>
+        <a href="https://github.com/CirqueiraDev/Minecraft-PyLauncher/commits/main" target="_blank" rel="noopener noreferrer">Changelog</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="index.js"></script>
+</body>
+</html>
